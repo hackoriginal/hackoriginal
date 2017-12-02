@@ -1,17 +1,26 @@
 <!doctype html>
 <html ng-app="originalColetivo">
+
 <head>
     <meta charset="utf-8">
     <title>Coletivo Original</title>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.7/angular.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.7/angular-route.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js"></script>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <style src="/css.css"></style>
 </head>
-<body ng-controller="main" >
-<div class="container-fluid">
-   <h1>Coletiva Original</h1>
-</div>
-<script src="/app.js"></script>
+
+<body ng-controller="main">
+    <div class="container-fluid">
+        <h1>Coletiva Original</h1>
+        <button ng-click="autenticar()" ng-if="!auth">
+            Clique aqui para acessar sua conta
+        </button>
+        <div ng-if="auth">
+            <button> Verificar saldo de pontos </button>
+        </div>
+    </div>
+    <script src="/app.js"></script>
 </body>
 </html>

@@ -1,8 +1,18 @@
-angular.module('originalColetivo', [])
+angular.module('originalColetivo', ['ngRoute'])
     .service('socket', function () {
-        return io.connect(location.protocol + '//' + location.host);        
-    })    
+        return io.connect(location.protocol + '//' + location.host);
+    })
+    .config(function ($provide, $routeProvider, $httpProvider) {
+        $routeProvider
+            .when('/alertas', {
+                controller: function ($route) {
+                    console.log("Passou aqui no alertas");
+                }
+            });
+    })
     .controller('main', function ($scope, socket, $http) {
+        $scope.auth = false;
+
         console.log(location.protocol);
         $scope.messages = [];
         $scope.access_token = localStorage.getItem('access_token');
@@ -16,6 +26,12 @@ angular.module('originalColetivo', [])
                 $scope.messages.unshift(...message.reverse());
             });
         });
+
+        socket.on('authSucess', function (message) {
+            $scope.$apply(function () {
+                $scope.auth = true;                
+            });
+        });
         $scope.call = function (resource) {
             socket.emit('exec', 'execute_api(\'' + resource + '\')');
         };
@@ -27,9 +43,15 @@ angular.module('originalColetivo', [])
                 'Content-Type': 'application/json',
                 /* 'token': config.getToken() */
             }
-        }).then(function(data){
+        }).then(function (data) {
             console.log(data);
-        }, function(erro){
+        }, function (erro) {
             console.log(erro);
         });
+
+        $scope.autenticar = function () {
+            var auth = window.open('/oauth');           
+        };
+
+
     });

@@ -111,14 +111,14 @@ let execute_api = name => {
             show(res.body);
 
             if ('security_message' in res.body) {
-                resources.tef_confirm.headers.security_response = res.body.security_message
+                resources.tef_confirm.headers.security_response = res.body.security_message;
             }
         }
     });
 };
 
 //
-// OAuth
+// Rotas Ui
 //
 
 app.get('/', (req, res) => {
@@ -130,10 +130,16 @@ app.get('/app.js', (req, res) => {
 app.get('/css.css', (req, res) => {
     res.sendFile(path.join(`${__dirname+"/app/../ui"}/css.css`));
 });
+//
+// OAuth
+//
+
+
 
 app.get('/oauth', (req, res) => {
     let url = `${auth_url}/OriginalConnect?scopes=account&callback_url=${auth_callback_url}&callback_id=1&developer_key=${developer_key}`;
     show('Starting oauth', `Redirect to ${url}`);
+    
     res.redirect(url);
 });
 
@@ -156,14 +162,17 @@ app.get('/callback', (req, res) => {
             secret_key
         })
         .end((err, response) => {
+            if(err){
+                res.send('<script>window.close();</script>');
+                io.emit('authFalha', "autenticado com sucesso");
+            }
             show(
                 'Response', response.statusMessage, response.statusCode,
                 'Headers', response.headers,
                 'Content', response.text
             );
-
             access_token = response.body.access_token;
-
+            io.emit('authSucess', "autenticado com sucesso");
             res.send('<script>window.close();</script>');
         });
 });
