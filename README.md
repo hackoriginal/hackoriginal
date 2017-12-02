@@ -1,2 +1,2 @@
 # hackoriginal
-Projeto Vaquinha comunitária
+ funding platform for original projects
