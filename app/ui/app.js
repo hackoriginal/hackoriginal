@@ -53,5 +53,14 @@ angular.module('originalColetivo', ['ngRoute'])
             var auth = window.open('/oauth');           
         };
 
+        $scope.verificarPontos = function(){
+            socket.emit('dados', 'saldoPontos');
+        };
 
+        socket.on('saldoPontosSucess', function (message) {
+            console.log(message);
+            $scope.$apply(function () {
+                $scope.saldoEmPontos = message;                
+            });
+        });
     });

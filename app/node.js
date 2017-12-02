@@ -77,6 +77,22 @@ let resources = {
             favored_id,
             // account_number
         }
+    },
+    saldoPontos: {
+        title: 'Saldo pontos',
+        method: 'get',
+        path: '/rewards/v1/balance',
+        headers: {
+            security_response: ''
+        }
+    },
+    extratoPontos: {
+        title: 'Extrato pontos',
+        method: 'get',
+        path: '/rewards/v1/transaction-history',
+        headers: {
+            security_response: ''
+        }
     }
 };
 
@@ -85,12 +101,11 @@ let show = (...messages) => {
     console.log(messages);
 };
 
-let execute_api = name => {
+let execute_api = function (name) {
     let resource = resources[name];
-    show(`EXECUTING ${name}`);
     let action =
         request
-            [resource.method](`${api_url}${resource.path}`)
+        [resource.method](`${api_url}${resource.path}`)
             .set('developer-key', developer_key)
             .set('Authorization', access_token);
 
@@ -101,20 +116,8 @@ let execute_api = name => {
     if ('data' in resource)
         action.send(resource.data);
 
-    show(action);
-
-    action.end((err, res) => {
-        if (err) {
-            show(err);
-        }
-        else {
-            show(res.body);
-
-            if ('security_message' in res.body) {
-                resources.tef_confirm.headers.security_response = res.body.security_message;
-            }
-        }
-    });
+    return action;
+    action
 };
 
 //
@@ -122,35 +125,26 @@ let execute_api = name => {
 //
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(`${__dirname+"/app/../ui"}/index.html`));
+    res.sendFile(path.join(`${__dirname + "/app/../ui"}/index.html`));
 });
 app.get('/app.js', (req, res) => {
-    res.sendFile(path.join(`${__dirname+"/app/../ui"}/app.js`));
+    res.sendFile(path.join(`${__dirname + "/app/../ui"}/app.js`));
 });
 app.get('/css.css', (req, res) => {
-    res.sendFile(path.join(`${__dirname+"/app/../ui"}/css.css`));
+    res.sendFile(path.join(`${__dirname + "/app/../ui"}/css.css`));
 });
+
 //
 // OAuth
 //
-
-
-
 app.get('/oauth', (req, res) => {
     let url = `${auth_url}/OriginalConnect?scopes=account&callback_url=${auth_callback_url}&callback_id=1&developer_key=${developer_key}`;
-    show('Starting oauth', `Redirect to ${url}`);
-    
     res.redirect(url);
 });
 
 // Access_token generation
 
 app.get('/callback', (req, res) => {
-    show(
-        'Callback oauth received',
-        req.query,
-        'Requesting access token'
-    );
 
     request
         .post(`${auth_url}/OriginalConnect/AccessTokenController`)
@@ -162,15 +156,10 @@ app.get('/callback', (req, res) => {
             secret_key
         })
         .end((err, response) => {
-            if(err){
+            if (err) {
                 res.send('<script>window.close();</script>');
                 io.emit('authFalha', "autenticado com sucesso");
             }
-            show(
-                'Response', response.statusMessage, response.statusCode,
-                'Headers', response.headers,
-                'Content', response.text
-            );
             access_token = response.body.access_token;
             io.emit('authSucess', "autenticado com sucesso");
             res.send('<script>window.close();</script>');
@@ -183,7 +172,16 @@ app.get('/testeapi', (req, res) => {
 
 io.on('connection', socket => {
     socket.on('operation', operation => {
-        execute_api(operation);
+        execute_api(operation).end((err, res) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                if ('security_message' in res.body) {
+                    resources.tef_confirm.headers.security_response = res.body.security_message;
+                }
+            }
+        });
     });
 
     socket.on('exec', text => {
@@ -197,6 +195,29 @@ io.on('connection', socket => {
             show(res);
         }
     });
+
+    socket.on('dados', text => {
+        console.log(text);
+        switch (text) {
+            case 'saldoPontos':
+                execute_api('saldoPontos').end((err, res) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        if ('security_message' in res.body) {
+                            resources.tef_confirm.headers.security_response = res.body.security_message;
+                        }
+                        io.emit('saldoPontosSucess', res.body.current_balance);
+                    }
+                });
+                break;
+
+            default:
+                break;
+        }
+    })
+
 });
 
 http.listen(port, () => {

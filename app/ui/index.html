@@ -18,7 +18,7 @@
             Clique aqui para acessar sua conta
         </button>
         <div ng-if="auth">
-            <button> Verificar saldo de pontos </button>
+            <button ng-click="verificarPontos()"> Verificar saldo de pontos </button>  <span ng-if="saldoEmPontos">saldo em pontos é {{saldoEmPontos}}</span>
         </div>
     </div>
     <script src="/app.js"></script>
