@@ -1,0 +1,30 @@
+{
+  "name": "coletiva",
+  "version": "0.0.1",
+  "description": "Financeiamento coletivo",
+  "main": "node.js",
+  "scripts": {
+    "test": "console.log(\"log\")",
+    "start": "npm install && node node.js",
+    "dev": "npm install && nodemon node.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hackoriginal/hackoriginal.git"
+  },
+  "keywords": [
+    "coletiva"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hackoriginal/hackoriginal/issues"
+  },
+  "homepage": "https://github.com/hackoriginal/hackoriginal#readme",
+  "dependencies": {
+    "socket.io": "^2.0.4",
+    "express": "*",
+    "superagent": "*",
+    "http": "*"
+  }
+}

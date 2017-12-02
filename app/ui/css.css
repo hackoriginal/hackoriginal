@@ -1,0 +1,10 @@
+pre {
+    white-space: pre-wrap;
+}
+
+.messages {
+    overflow-y: auto;
+    position: fixed;
+    height: 100%;
+    width: calc(66.66666% - 15px);
+}
