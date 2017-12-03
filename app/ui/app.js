@@ -8,7 +8,13 @@ angular.module('originalColetivo', ['ngRoute'])
                 controller: function ($route) {
                     console.log("Passou aqui no alertas");
                 }
+            }) 
+            .when('/login', {
+                templateUrl : "login.html"                
             });
+           /*  .when("/", {
+                templateUrl : "index.html"                
+            }); */
     })
     .controller('main', function ($scope, socket, $http) {
         $scope.auth = false;

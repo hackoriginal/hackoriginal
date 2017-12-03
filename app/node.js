@@ -133,6 +133,9 @@ app.get('/app.js', (req, res) => {
 app.get('/css.css', (req, res) => {
     res.sendFile(path.join(`${__dirname + "/app/../ui"}/css.css`));
 });
+app.get('/login.html', (req, res) => {
+    res.sendFile(path.join(`${__dirname + "/app/../ui"}/telas/login.html`));
+});
 
 //
 // OAuth
