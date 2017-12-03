@@ -119,6 +119,14 @@ angular.module('originalColetivo', ['ngRoute'])
             $location.path('forma-pagamento');
         };
 
+        $scope.irValorContribuicao = function(){
+            $location.path('valor-colaboracao');
+        };
+
+        $scope.irParaEscolhaCartao = function(){
+            $location.path('cartoes');
+        };
+
         socket.on('saldoPontosSucess', function (message) {
             console.log(message);
             $scope.$apply(function () {

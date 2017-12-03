@@ -172,7 +172,9 @@ body {
     transition: 0.5s;
   }
   .codebar{
-    background: url(icon/codebar_green.svg) no-repeat 45% center;
+    background-position: center;
+    background-size: cover;   
+    background: url(codebar_green.svg) no-repeat 45% center;
     background-color: #ffffff;
     border: solid 2px #00A151;
     color: #00A151;
@@ -185,6 +187,8 @@ body {
     transition: 0.5s;
   }
   .rewards{
+    background-position: center;
+    background-size: cover;   
     background: url(rewards_green.svg) no-repeat 45% center;
     background-color: #ffffff;
     border: solid 2px #00A151;
@@ -198,6 +202,8 @@ body {
     transition: 0.5s;
   }
   .card{
+    background-position: center;
+    background-size: 15px;   
     background: url(card_green.svg) no-repeat 45% center;
     background-color: #ffffff;
     border: solid 2px #00A151;
@@ -339,4 +345,5 @@ body {
   .negrito{
     font-weight: 800;
   }
+  
   
