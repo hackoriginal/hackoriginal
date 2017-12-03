@@ -48,14 +48,14 @@ let developer_key = '28f955c90b3a2940134ff1a970050f569a87facf';
 let secret_key = 'dd385cd0b59c013560400050569a7fac';
 let access_token = '';
 
-
-request["get"]("https://0815b1a3-9cf2-4637-8a42-c7e86c4a1b6c-bluemix.cloudant.com/ocollab/_all_docs")
+/* https://0815b1a3-9cf2-4637-8a42-c7e86c4a1b6c-bluemix.cloudant.com/ocollab/_all_docs?include_docs=true */
+request["get"]("https://0815b1a3-9cf2-4637-8a42-c7e86c4a1b6c-bluemix.cloudant.com/ocollab/_all_docs?include_docs=true")
     .set('Authorization', "Basic d2l0aGVyZWVtYWRlc3RhbmRlcmVwdGlvOjliNjA0MGE5YzU5YTFiYmU4N2M3ZGRiYmI3MGNlMmI2NmUwZmI3N2M=").end((err, res) => {
         if (err) {
             console.log(err);
         }
         else {
-            console.log(res);
+            console.log(res.body);
             if ('security_message' in res.body) {
                 resources.tef_confirm.headers.security_response = res.body.security_message;
             }
