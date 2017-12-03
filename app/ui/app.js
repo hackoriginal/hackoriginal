@@ -11,6 +11,9 @@ angular.module('originalColetivo', ['ngRoute'])
             }) 
             .when('/login', {
                 templateUrl : "login.html"                
+            }) 
+            .when('/bem-vindo', {
+                templateUrl : "bem-vindo.html"                
             });
            /*  .when("/", {
                 templateUrl : "index.html"                

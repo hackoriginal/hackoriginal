@@ -182,6 +182,10 @@ app.get('/css.css', (req, res) => {
 app.get('/login.html', (req, res) => {
     res.sendFile(path.join(`${__dirname + "/app/../ui"}/telas/login.html`));
 });
+app.get('/bem-vindo.html', (req, res) => {
+    res.sendFile(path.join(`${__dirname + "/app/../ui"}/telas/bem-vindo.html`));
+});
+
 
 //
 // OAuth

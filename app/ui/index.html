@@ -18,6 +18,7 @@
         <div ng-view></div>
         <h1>Coletiva Original</h1>
        <a href="#!/login"> Login </a>
+       <a href="#!/bem-vindo"> Login </a>
         <button ng-click="autenticar()" ng-if="!auth">
             Clique aqui para acessar sua conta
         </button>
@@ -27,6 +28,7 @@
             <button ng-click="dadosCartao()"> dados cartao </button> 
             <button ng-click="saldo()"> Saldo</button>   <span ng-if="saldo">saldo é {{saldo}}</span>
         <!-- </div> -->
+        
     </div>
     <script src="/app.js"></script>
 </body>
