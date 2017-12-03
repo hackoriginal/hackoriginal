@@ -189,6 +189,7 @@ app.get('/app.js', (req, res) => {
     res.sendFile(path.join(`${__dirname + "/app/../ui"}/app.js`));
 });
 app.get('/css.css', (req, res) => {
+    console.log("CHAMOU O CSS");
     res.sendFile(path.join(`${__dirname + "/app/../ui"}/css.css`));
 });
 app.get('/login.html', (req, res) => {
@@ -221,6 +222,46 @@ app.get('/principal.html', (req, res) => {
 app.get('/valor-colaboracao.html', (req, res) => {
     res.sendFile(path.join(`${__dirname + "/app/../ui"}/telas/valor-colaboracao.html`));
 });
+app.get('/eventos.html', (req, res) => {
+    res.sendFile(path.join(`${__dirname + "/app/../ui"}/telas/eventos.html`));
+});
+app.get('/detalhes-evento.html', (req, res) => {
+    res.sendFile(path.join(`${__dirname + "/app/../ui"}/telas/detalhes-evento.html`));
+});
+
+
+
+app.get('/background_title.png', (req, res) => {
+    res.sendFile(path.join(`${__dirname + "/app/../ui"}/telas/img/background_title.png`));
+});
+app.get('/card_green.svg', (req, res) => {
+    res.sendFile(path.join(`${__dirname + "/app/../ui"}/telas/img/card_green.svg`));
+});
+app.get('/card_white.svg', (req, res) => {
+    res.sendFile(path.join(`${__dirname + "/app/../ui"}/telas/img/card_white.svg`));
+});
+app.get('/codebar_green.svg', (req, res) => {
+    res.sendFile(path.join(`${__dirname + "/app/../ui"}/telas/img/codebar_green.svg`));
+});
+app.get('/codebar_white.svg', (req, res) => {
+    res.sendFile(path.join(`${__dirname + "/app/../ui"}/telas/img/codebar_white.svg`));
+});
+app.get('/logo.svg', (req, res) => {
+    res.sendFile(path.join(`${__dirname + "/app/../ui"}/telas/img/logo.svg`));
+});
+app.get('/notification.svg', (req, res) => {
+    res.sendFile(path.join(`${__dirname + "/app/../ui"}/telas/img/notification.svg`));
+});
+app.get('/project_bg.png', (req, res) => {
+    res.sendFile(path.join(`${__dirname + "/app/../ui"}/telas/img/project_bg.png`));
+});
+app.get('/rewards_green.svg', (req, res) => {
+    res.sendFile(path.join(`${__dirname + "/app/../ui"}/telas/img/rewards_green.svg`));
+});
+app.get('/white.svg', (req, res) => {
+    res.sendFile(path.join(`${__dirname + "/app/../ui"}/telas/img/white.svg`));
+});
+
 
 //
 // OAuth

@@ -3,11 +3,11 @@ angular.module('originalColetivo', ['ngRoute'])
         return io.connect(location.protocol + '//' + location.host);
     })
     .config(function ($provide, $routeProvider, $httpProvider) {
-        function verificarLogin(){
+        function verificarLogin() {
             //faz uma verificação via socket
         }
 
-        $routeProvider           
+        $routeProvider
             .when('/login', {
                 templateUrl: "login.html"
             })
@@ -41,12 +41,18 @@ angular.module('originalColetivo', ['ngRoute'])
             })
             .when('/valor-colaboracao', {
                 templateUrl: "valor-colaboracao.html"
-            });
-        /*  .when("/", {
-             templateUrl : "index.html"                
-         }); */
+            })
+            .when('/eventos', {
+                templateUrl: "eventos.html"
+            })
+            .when('/detalhes-evento', {
+                templateUrl: "eventos.html"
+            })
+            .when("/", {
+                templateUrl: "login.html"
+            }).otherwise("/");
     })
-    .controller('main', function ($scope, socket, $http) {
+    .controller('main', function ($scope, socket, $http, $location) {
         $scope.auth = false;
 
         console.log(location.protocol);
@@ -69,10 +75,10 @@ angular.module('originalColetivo', ['ngRoute'])
                 $scope.auth = true;
             });
         });
-        
+
         $scope.call = function (resource) {
             socket.emit('exec', 'execute_api(\'' + resource + '\')');
-        };        
+        };
 
         $scope.autenticar = function () {
             var auth = window.open('/oauth');
@@ -96,6 +102,18 @@ angular.module('originalColetivo', ['ngRoute'])
                 $scope.saldoEmPontos = message;                
             }); */
         });
+
+        $scope.irBoasVindas = function () {
+            $location.path('bem-vindo');
+        };
+
+        $scope.explorarProjetos = function () {
+            $location.path('eventos');
+        };
+
+        $scope.verDetalhesEvento = function () {
+            $location.path('detalhes-evento');
+        };
 
         socket.on('saldoPontosSucess', function (message) {
             console.log(message);

@@ -9,26 +9,27 @@
     <script src="//code.angularjs.org/snapshot/angular-animate.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js"></script>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <style src="/css.css"></style>
+    <link href="/css.css" rel="stylesheet">
 </head>
 
 <body ng-controller="main">
-    <div class="container-fluid">
-        <div ng-view></div>
-        <h1>Coletiva Original</h1>
+        <div ng-view class="tela"></div>
+   <!--  <div class="container-fluid"> -->
+        
+     <!--    <h1>Coletiva Original</h1>
        <a href="#!/login"> Login </a>
        <a href="#!/bem-vindo"> Login </a>
         <button ng-click="autenticar()" ng-if="!auth">
             Clique aqui para acessar sua conta
-        </button>
+        </button> -->
         <!-- <div ng-if="auth"> -->
-            <button ng-click="verificarPontos()"> Verificar saldo de pontos </button>  <span ng-if="saldoEmPontos">saldo em pontos é {{saldoEmPontos}}</span>
+            <!-- <button ng-click="verificarPontos()"> Verificar saldo de pontos </button>  <span ng-if="saldoEmPontos">saldo em pontos é {{saldoEmPontos}}</span>
             <button ng-click="listaCartoes()"> lista de cartoes </button>  
             <button ng-click="dadosCartao()"> dados cartao </button> 
-            <button ng-click="saldo()"> Saldo</button>   <span ng-if="saldo">saldo é {{saldo}}</span>
+            <button ng-click="saldo()"> Saldo</button>   <span ng-if="saldo">saldo é {{saldo}}</span> -->
         <!-- </div> -->
         
-    </div>
+   <!--  </div> -->
     <script src="/app.js"></script>
 </body>
 </html>

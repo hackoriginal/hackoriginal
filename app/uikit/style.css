@@ -16,7 +16,6 @@ body {
   position: absolute;
   right: 5%;
   padding: 15px;
-  ]
 }
   .yellow{
   background-color: #FFBA00;
@@ -161,14 +160,14 @@ input {
 input[type=text] {
   text-align: center;
 }
-.modal {
+.modal { 
   font-family: 'Open Sans', sans-serif;
   font-style: normal;
+  max-height: 400px;
   font-weight: 600;
   line-height: normal;
   font-size: 18px;
   padding: 5%;
-  width: 80%;
   border-radius: 10px;
   cursor: pointer;
   outline: none;
