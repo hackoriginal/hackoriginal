@@ -63,6 +63,21 @@ angular.module('originalColetivo', ['ngRoute'])
             socket.emit('dados', 'saldoPontos');
         };
 
+        $scope.listaCartoes = function() {
+            socket.emit('dados', 'listaCartoes');
+        };
+
+        $scope.saldo = function(){
+            socket.emit('dados', 'saldo');
+        };
+
+        socket.on('listaCartoesSucess', function (message) {
+            console.log(message);
+            /* $scope.$apply(function () {
+                $scope.saldoEmPontos = message;                
+            }); */
+        });
+
         socket.on('saldoPontosSucess', function (message) {
             console.log(message);
             $scope.$apply(function () {

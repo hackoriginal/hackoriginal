@@ -9,6 +9,31 @@ let io = require('socket.io')(http);
 let path = require('path');
 let request = require('superagent');
 
+/* let db;
+let Datastore = require('nedb');
+if(!db) {
+    db = new Datastore({
+        filename: 'data,db', 
+        autoload: true 
+    });
+    console.log('Banco ' + dbName + ' pronto para uso')
+}
+
+function addBD(dados){
+    db.insert(dados, function(err, newDoc) {
+        if(err) return console.log(err);
+        console.log('Adicionado com sucesso: ' + newDoc._id);
+        res.json(newDoc._id);
+    });  
+}
+
+function busca(id){
+    db.findOne({_id: req.params.id }, function(err, doc) {
+        if (err) return console.log(err);
+        res.json(doc);
+    });
+} */
+
 //
 // Configurations
 //
@@ -93,19 +118,41 @@ let resources = {
         headers: {
             security_response: ''
         }
+    },
+    listaCartoes: {
+        title: 'lista Cartoes',
+        method: 'get',
+        path: '/cards/v1/',
+        headers: {
+            security_response: ''
+        }
+    },
+    dadosCartao: function (cartao) {
+        return {
+            title: 'Extrato pontos',
+            method: 'get',
+            path: '/cards/v1/'+cartao,
+            headers: {
+                security_response: ''
+            }
+        };
     }
 };
+
 
 let show = (...messages) => {
     io.emit('message', messages.map(message => JSON.stringify(message, null, 4)));
     console.log(messages);
 };
 
-let execute_api = function (name) {
-    let resource = resources[name];
-    let action =
-        request
-        [resource.method](`${api_url}${resource.path}`)
+let execute_api = function (name, parametro) {
+    let resource;
+    if(parametro){
+        resource = resources[name](parametro);
+    }else{
+        resource = resources[name];
+    }
+    let action = request[resource.method](`${api_url}${resource.path}`)
             .set('developer-key', developer_key)
             .set('Authorization', access_token);
 
@@ -117,7 +164,6 @@ let execute_api = function (name) {
         action.send(resource.data);
 
     return action;
-    action
 };
 
 //
@@ -201,7 +247,26 @@ io.on('connection', socket => {
 
     socket.on('dados', text => {
         console.log(text);
+        var parametro
+        if(text.parametro){
+            parametro = text.parametro ;
+        }
+
         switch (text) {
+            case 'saldo':
+            execute_api('balance').end((err, res) => {
+                console.log(res);
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    if ('security_message' in res.body) {
+                        resources.tef_confirm.headers.security_response = res.body.security_message;
+                    }
+                    io.emit('saldo', res.body.current_balance);
+                }
+            });
+            break;
             case 'saldoPontos':
                 execute_api('saldoPontos').end((err, res) => {
                     if (err) {
@@ -215,7 +280,33 @@ io.on('connection', socket => {
                     }
                 });
                 break;
-
+            case 'listaCartoes':
+                execute_api('listaCartoes').end((err, res) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        if ('security_message' in res.body) {
+                            resources.tef_confirm.headers.security_response = res.body.security_message;
+                        }
+                        io.emit('listaCartoesSucess', res.body);
+                    }
+                });
+            break;
+            case 'dadosCartao':
+                execute_api('dadosCartao',0001).end((err, res) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        if ('security_message' in res.body) {
+                            resources.tef_confirm.headers.security_response = res.body.security_message;
+                        }
+                        io.emit('listaCartoesSucess', res.body);
+                    }
+                });
+                
+            break;
             default:
                 break;
         }

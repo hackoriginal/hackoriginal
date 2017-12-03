@@ -21,9 +21,12 @@
         <button ng-click="autenticar()" ng-if="!auth">
             Clique aqui para acessar sua conta
         </button>
-        <div ng-if="auth">
+        <!-- <div ng-if="auth"> -->
             <button ng-click="verificarPontos()"> Verificar saldo de pontos </button>  <span ng-if="saldoEmPontos">saldo em pontos é {{saldoEmPontos}}</span>
-        </div>
+            <button ng-click="listaCartoes()"> lista de cartoes </button>  
+            <button ng-click="dadosCartao()"> dados cartao </button> 
+            <button ng-click="saldo()"> Saldo</button>   <span ng-if="saldo">saldo é {{saldo}}</span>
+        <!-- </div> -->
     </div>
     <script src="/app.js"></script>
 </body>
