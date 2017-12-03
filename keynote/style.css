@@ -1,13 +1,10 @@
 body{
-      margin: 5px 5px 5px 5px;
-      background-color: black;
-}
-
-img {
-  height:  20%;
+  margin: 5px 5px 5px 5px;
+  background-color: black;
 }
 
 .siema {
   width: 900px;
-  height: 100%;
+  height: 90%;
+  background-size: cover;
 }
