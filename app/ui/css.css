@@ -329,4 +329,14 @@ body {
     font-size: 28px;
     color: #00A151;
   }
+
+  .text-detalhe-evento{
+    text-align: left;
+    padding-left: 8%;
+    padding-right: 6%;
+  }
+
+  .negrito{
+    font-weight: 800;
+  }
   

@@ -230,7 +230,6 @@ app.get('/detalhes-evento.html', (req, res) => {
 });
 
 
-
 app.get('/background_title.png', (req, res) => {
     res.sendFile(path.join(`${__dirname + "/app/../ui"}/telas/img/background_title.png`));
 });

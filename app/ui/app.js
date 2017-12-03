@@ -46,7 +46,7 @@ angular.module('originalColetivo', ['ngRoute'])
                 templateUrl: "eventos.html"
             })
             .when('/detalhes-evento', {
-                templateUrl: "eventos.html"
+                templateUrl: "detalhes-evento.html"
             })
             .when("/", {
                 templateUrl: "login.html"
@@ -113,6 +113,10 @@ angular.module('originalColetivo', ['ngRoute'])
 
         $scope.verDetalhesEvento = function () {
             $location.path('detalhes-evento');
+        };
+
+        $scope.colaborarComEvento = function(){
+            $location.path('forma-pagamento');
         };
 
         socket.on('saldoPontosSucess', function (message) {
