@@ -182,10 +182,33 @@ app.get('/css.css', (req, res) => {
 app.get('/login.html', (req, res) => {
     res.sendFile(path.join(`${__dirname + "/app/../ui"}/telas/login.html`));
 });
+app.get('/aprovado.html', (req, res) => {
+    res.sendFile(path.join(`${__dirname + "/app/../ui"}/telas/aprovado.html`));
+});
 app.get('/bem-vindo.html', (req, res) => {
     res.sendFile(path.join(`${__dirname + "/app/../ui"}/telas/bem-vindo.html`));
 });
-
+app.get('/cartoes.html', (req, res) => {
+    res.sendFile(path.join(`${__dirname + "/app/../ui"}/telas/cartoes.html`));
+});
+app.get('/comecar.html', (req, res) => {
+    res.sendFile(path.join(`${__dirname + "/app/../ui"}/telas/comecar.html`));
+});
+app.get('/forma-pagamento.html', (req, res) => {
+    res.sendFile(path.join(`${__dirname + "/app/../ui"}/telas/forma-pagamento.html`));
+});
+app.get('/loading.html', (req, res) => {
+    res.sendFile(path.join(`${__dirname + "/app/../ui"}/telas/loading.html`));
+});
+app.get('/novidades.html', (req, res) => {
+    res.sendFile(path.join(`${__dirname + "/app/../ui"}/telas/novidades.html`));
+});
+app.get('/principal.html', (req, res) => {
+    res.sendFile(path.join(`${__dirname + "/app/../ui"}/telas/principal.html`));
+});
+app.get('/valor-colaboracao.html', (req, res) => {
+    res.sendFile(path.join(`${__dirname + "/app/../ui"}/telas/valor-colaboracao.html`));
+});
 
 //
 // OAuth
