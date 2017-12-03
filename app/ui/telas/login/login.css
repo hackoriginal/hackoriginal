@@ -1,0 +1,66 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    box-sizing: border-box;
+    padding-top: 20px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 10px;
+    text-align: center;
+    justify-content: center;
+    color: #FFFFFF;
+}
+.header__back{
+
+    /* Rectangle 3 */
+
+    position: absolute;
+    width: 319.74px;
+    height: 552px;
+    left: 0.26px;
+    top: 16px;
+
+    background: #298055;
+    background-blend-mode: multiply;
+}
+.header__logo{
+    position: absolute;
+    left: 91.49px;
+    top: 194.33px;
+}
+.header__paragrafo{
+    position: absolute;
+    width: 178px;
+    height: 14px;
+    left: 70.54px;
+    top: 249.52px;
+}
+.header__button{
+    /* Rectangle */
+
+    position: absolute;
+    width: 288px;
+    height: 40px;
+    left: 16px;
+    top: 313.52px;
+    align-content: left;
+    background: #E3A300;
+    border-radius: 6px;
+
+    /* Login */
+    font-size: 12px;
+    color: #FFFFFF;
+}
+.header__description{
+    /* Cadastre-se grátis */
+    position: absolute;
+    width: 84px;
+    height: 14px;
+    left: 118px;
+    top: 369.52px;
+}
