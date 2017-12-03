@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>O.Lab</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+  <body>
+    <div class="siema">
+      <div><img src="https://pawelgrzybek.com/siema/assets/siema--yellow.svg" alt="slide 1" /></div>
+      <div><img src="https://pawelgrzybek.com/siema/assets/siema--pink.svg" alt="slide 2" /></div>
+      <div><img src="https://pawelgrzybek.com/siema/assets/siema--yellow.svg" alt="slide 3" /></div>
+    </div>
+  </body>
+  <script src="siema.min.js"></script>
+  <script>
+  const mySiema = new Siema({
+  duration: 150,
+});
+
+// listen for keydown event
+document.addEventListener('keydown', (e) => {
+  // if it's left arrow key
+  if (e.keyCode === 37) {
+    mySiema.prev()
+  }
+  // if it's right arrow key
+  else if (e.keyCode === 39) {
+    mySiema.next()
+  }
+})
+  </script>
+</html>
