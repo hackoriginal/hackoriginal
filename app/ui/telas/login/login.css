@@ -1,11 +1,13 @@
 *{
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
 }
 
-body{
-    box-sizing: border-box;
-    padding-top: 20px;
+html,body{   
+    width: 100%;
+    height: 100%;
+    /* padding-top: 20px; */
     font-family: Open Sans;
     font-style: normal;
     font-weight: normal;
@@ -16,9 +18,10 @@ body{
     color: #FFFFFF;
 }
 .header__back{
-
+    width: 100%;
+    height: 100%;
     /* Rectangle 3 */
-
+/* 
     position: absolute;
     width: 319.74px;
     height: 552px;
@@ -27,7 +30,9 @@ body{
 
     background: #298055;
     background-blend-mode: multiply;
-}
+    */
+} 
+
 .header__logo{
     position: absolute;
     left: 91.49px;
@@ -64,3 +69,7 @@ body{
     left: 118px;
     top: 369.52px;
 }
+
+header__back{
+    margin: 0;
+} 

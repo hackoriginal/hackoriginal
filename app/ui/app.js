@@ -3,21 +3,48 @@ angular.module('originalColetivo', ['ngRoute'])
         return io.connect(location.protocol + '//' + location.host);
     })
     .config(function ($provide, $routeProvider, $httpProvider) {
-        $routeProvider
-            .when('/alertas', {
-                controller: function ($route) {
-                    console.log("Passou aqui no alertas");
-                }
-            }) 
+        function verificarLogin(){
+            //faz uma verificação via socket
+        }
+
+        $routeProvider           
             .when('/login', {
-                templateUrl : "login.html"                
-            }) 
+                templateUrl: "login.html"
+            })
+            .when('/aprovado', {
+                templateUrl: "aprovado.html",
+                resolve: verificarLogin()
+            })
             .when('/bem-vindo', {
-                templateUrl : "bem-vindo.html"                
+                templateUrl: "bem-vindo.html"
+            })
+            .when('/cartoes', {
+                templateUrl: "cartoes.html"
+            })
+            .when('/comecar', {
+                templateUrl: "comecar.html"
+            })
+            .when('/forma-pagamento', {
+                templateUrl: "forma-pagamento.html"
+            })
+            .when('/loading', {
+                templateUrl: "loading.html"
+            })
+            .when('/login', {
+                templateUrl: "login.html"
+            })
+            .when('/novidades', {
+                templateUrl: "novidades.html"
+            })
+            .when('/principal', {
+                templateUrl: "principal.html"
+            })
+            .when('/valor-colaboracao', {
+                templateUrl: "valor-colaboracao.html"
             });
-           /*  .when("/", {
-                templateUrl : "index.html"                
-            }); */
+        /*  .when("/", {
+             templateUrl : "index.html"                
+         }); */
     })
     .controller('main', function ($scope, socket, $http) {
         $scope.auth = false;
@@ -30,6 +57,7 @@ angular.module('originalColetivo', ['ngRoute'])
                 $scope.access_token = access_token;
             });
         });
+
         socket.on('message', function (message) {
             $scope.$apply(function () {
                 $scope.messages.unshift(...message.reverse());
@@ -38,39 +66,27 @@ angular.module('originalColetivo', ['ngRoute'])
 
         socket.on('authSucess', function (message) {
             $scope.$apply(function () {
-                $scope.auth = true;                
+                $scope.auth = true;
             });
         });
+        
         $scope.call = function (resource) {
             socket.emit('exec', 'execute_api(\'' + resource + '\')');
-        };
-
-        $http({
-            method: 'GET',
-            url: location + 'testeapi',
-            headers: {
-                'Content-Type': 'application/json',
-                /* 'token': config.getToken() */
-            }
-        }).then(function (data) {
-            console.log(data);
-        }, function (erro) {
-            console.log(erro);
-        });
+        };        
 
         $scope.autenticar = function () {
-            var auth = window.open('/oauth');           
+            var auth = window.open('/oauth');
         };
 
-        $scope.verificarPontos = function(){
+        $scope.verificarPontos = function () {
             socket.emit('dados', 'saldoPontos');
         };
 
-        $scope.listaCartoes = function() {
+        $scope.listaCartoes = function () {
             socket.emit('dados', 'listaCartoes');
         };
 
-        $scope.saldo = function(){
+        $scope.saldo = function () {
             socket.emit('dados', 'saldo');
         };
 
@@ -84,7 +100,7 @@ angular.module('originalColetivo', ['ngRoute'])
         socket.on('saldoPontosSucess', function (message) {
             console.log(message);
             $scope.$apply(function () {
-                $scope.saldoEmPontos = message;                
+                $scope.saldoEmPontos = message;
             });
         });
     });

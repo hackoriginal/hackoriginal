@@ -41,14 +41,26 @@ function busca(id){
 const port = 6001;
 const url = `http://localhost:${port}/`;
 
-
-
 let api_url = 'https://sandbox.original.com.br';
 let auth_url = 'https://sb-autenticacao-api.original.com.br';
 let auth_callback_url = `http://localhost:${port}/callback`
 let developer_key = '28f955c90b3a2940134ff1a970050f569a87facf';
 let secret_key = 'dd385cd0b59c013560400050569a7fac';
 let access_token = '';
+
+
+request["get"]("https://0815b1a3-9cf2-4637-8a42-c7e86c4a1b6c-bluemix.cloudant.com/ocollab/_all_docs")
+    .set('Authorization', "Basic d2l0aGVyZWVtYWRlc3RhbmRlcmVwdGlvOjliNjA0MGE5YzU5YTFiYmU4N2M3ZGRiYmI3MGNlMmI2NmUwZmI3N2M=").end((err, res) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log(res);
+            if ('security_message' in res.body) {
+                resources.tef_confirm.headers.security_response = res.body.security_message;
+            }
+        }
+    });
 
 //
 // Resources
@@ -131,7 +143,7 @@ let resources = {
         return {
             title: 'Extrato pontos',
             method: 'get',
-            path: '/cards/v1/'+cartao,
+            path: '/cards/v1/' + cartao,
             headers: {
                 security_response: ''
             }
@@ -147,14 +159,14 @@ let show = (...messages) => {
 
 let execute_api = function (name, parametro) {
     let resource;
-    if(parametro){
+    if (parametro) {
         resource = resources[name](parametro);
-    }else{
+    } else {
         resource = resources[name];
     }
     let action = request[resource.method](`${api_url}${resource.path}`)
-            .set('developer-key', developer_key)
-            .set('Authorization', access_token);
+        .set('developer-key', developer_key)
+        .set('Authorization', access_token);
 
     if ('headers' in resource)
         for (let key in resource.headers)
@@ -275,25 +287,26 @@ io.on('connection', socket => {
     socket.on('dados', text => {
         console.log(text);
         var parametro
-        if(text.parametro){
-            parametro = text.parametro ;
+        if (text.parametro) {
+            parametro = text.parametro;
+            text = text.text;
         }
 
         switch (text) {
             case 'saldo':
-            execute_api('balance').end((err, res) => {
-                console.log(res);
-                if (err) {
-                    console.log(err);
-                }
-                else {
-                    if ('security_message' in res.body) {
-                        resources.tef_confirm.headers.security_response = res.body.security_message;
+                execute_api('balance').end((err, res) => {
+                    console.log(res);
+                    if (err) {
+                        console.log(err);
                     }
-                    io.emit('saldo', res.body.current_balance);
-                }
-            });
-            break;
+                    else {
+                        if ('security_message' in res.body) {
+                            resources.tef_confirm.headers.security_response = res.body.security_message;
+                        }
+                        io.emit('saldo', res.body.current_balance);
+                    }
+                });
+                break;
             case 'saldoPontos':
                 execute_api('saldoPontos').end((err, res) => {
                     if (err) {
@@ -319,9 +332,9 @@ io.on('connection', socket => {
                         io.emit('listaCartoesSucess', res.body);
                     }
                 });
-            break;
+                break;
             case 'dadosCartao':
-                execute_api('dadosCartao',0001).end((err, res) => {
+                execute_api('dadosCartao', parametro).end((err, res) => {
                     if (err) {
                         console.log(err);
                     }
@@ -332,8 +345,7 @@ io.on('connection', socket => {
                         io.emit('listaCartoesSucess', res.body);
                     }
                 });
-                
-            break;
+                break;
             default:
                 break;
         }
