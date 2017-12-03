@@ -127,6 +127,14 @@ angular.module('originalColetivo', ['ngRoute'])
             $location.path('cartoes');
         };
 
+        $scope.irParaAprovado = function () {
+            $location.path('aprovado');
+        };
+
+        $scope.irParaDashBoard = function (){
+            $location.path('principal');
+        };
+
         socket.on('saldoPontosSucess', function (message) {
             console.log(message);
             $scope.$apply(function () {
